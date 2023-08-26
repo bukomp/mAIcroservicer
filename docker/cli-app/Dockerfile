@@ -1,11 +1,14 @@
 # Use an official Node.js runtime as base image
-FROM node:14
+FROM node:18
 
 # Set working directory in Docker image
 WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json (if available) to the root directory of our app
 COPY ./cli-app/package*.json ./
+
+# Copy tsconfig.json
+COPY ./cli-app/tsconfig.json ./
 
 # Install project dependencies
 RUN npm install
