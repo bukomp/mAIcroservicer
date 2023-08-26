@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web-server:
+    build:
+      context: .
+      dockerfile: ./docker/web-server/Dockerfile
+    ports:
+      - "3000:3000" # Expose port 3000 for external access
+    volumes:
+      - ./web-server:/usr/src/app
+    depends_on:
+      - cli-app # Ensure cli-app is running when web-server starts
+
+  cli-app:
+    build:
+      context: .
+      dockerfile: ./docker/cli-app/Dockerfile
+    volumes:
+      - ./cli-app:/usr/src/app
