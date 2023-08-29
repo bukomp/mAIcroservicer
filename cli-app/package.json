@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node dist/cli.js",
-    "build": "tsc && pkg -t node18-linux dist/cli.js ",
+    "build": "tsc && pkg -t node18-linux dist/cli.js -o cli_app",
     "dev": "ts-node src/cli.ts"
   },
   "devDependencies": {
