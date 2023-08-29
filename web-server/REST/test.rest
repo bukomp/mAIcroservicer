@@ -1,1 +1,1 @@
-GET http://127.0.0.1:3000/api/cli/test
+GET http://127.0.0.1:3000/api/range?min=1&max=100&number=50

@@ -23,9 +23,9 @@ router.get('/cli/test', (req, res) => {
 });
 
 router.get('/range', async (req, res) => {
-  const min = req.query.min;
-  const max = req.query.max;
-  const number = req.query.number;
+  const min = Number(req.query.min);
+  const max = Number(req.query.max);
+  const number = Number(req.query.number);
 
   if (!min || !max || !number) {
     res
@@ -42,15 +42,11 @@ router.get('/range', async (req, res) => {
   await exec(
     'cli_app ' + min + ' ' + max + ' ' + number,
     (error: any, stdout: any, stderr: any) => {
-      if (error) {
-        console.log(`error: ${error.message}`);
+      if (error || stderr) {
+        res.status(500).send({ error: error.message });
         return;
       }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-      }
-      res.send(`stdout: ${stdout}`);
+      res.send(`${stdout}`);
     }
   );
 });
