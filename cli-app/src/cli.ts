@@ -1,5 +1,6 @@
 import readline from 'readline';
 import { keepAlive } from './utils/keepalive';
+import { randomInt } from 'crypto';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -7,36 +8,40 @@ const rl = readline.createInterface({
   terminal: false,
 });
 
+const generateRandomNumbers = (
+  min: number,
+  max: number,
+  count: number
+): string => {
+  let numbers = [];
+  for (let i = 0; i < count; i++) {
+    numbers.push(randomInt(min, max));
+  }
+  return numbers.join(',');
+};
+
 const main = () => {
   rl.on('line', (input: string) => {
-    switch (input.trim()) {
-      case 'hello':
-        console.log('Hello, user!');
-        break;
-      case 'status':
-        console.log('CLI App is running.');
-        break;
-      case 'help':
-        console.log(`
-Available commands:
-- hello: Greets the user.
-- status: Shows the CLI status.
-- exit: Closes the CLI app.
-              `);
+    const [command, ...args] = input.trim().split(' ');
+    switch (command) {
+      case 'generate':
+        const [min, max, count] = args.map(Number);
+        console.log(generateRandomNumbers(min, max, count));
         break;
       case 'exit':
         console.log('Goodbye!');
         process.exit(0); // Exit the process when 'exit' command is received
         break;
-
       default:
-        console.log('Unknown command. Type "help" for a list of commands.');
+        console.log(
+          'Unknown command. Type "generate min max count" to generate random numbers.'
+        );
     }
   });
 
-  console.log("CLI App started. Type 'help' for a list of commands.");
-
-  keepAlive();
+  console.log(
+    "CLI App started. Type 'generate min max count' to generate random numbers."
+  );
 };
 
 main();
