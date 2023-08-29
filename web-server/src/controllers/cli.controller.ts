@@ -1,3 +1,6 @@
+import util from 'util';
+const exec = util.promisify(require('node:child_process').exec);
+
 import express from 'express';
 const router = express.Router();
 
@@ -19,7 +22,7 @@ router.get('/cli/test', (req, res) => {
   );
 });
 
-router.get('/range', (req, res) => {
+router.get('/range', async (req, res) => {
   const min = req.query.min;
   const max = req.query.max;
   const number = req.query.number;
@@ -36,7 +39,20 @@ router.get('/range', (req, res) => {
     return;
   }
 
-  res.send({ min, max, number });
+  await exec(
+    'cli_app ' + min + ' ' + max + ' ' + number,
+    (error: any, stdout: any, stderr: any) => {
+      if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+      }
+      res.send(`stdout: ${stdout}`);
+    }
+  );
 });
 
 export default router;
