@@ -1,5 +1,4 @@
 import { randomInt } from 'crypto';
-import { keepAlive } from './utils/keepalive';
 
 const generateRandomNumbers = (
   min: number,

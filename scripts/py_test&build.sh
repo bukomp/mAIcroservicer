@@ -1,10 +1,11 @@
 #!/bin/bash
 
+#! Save requirements to the requirements.txt
+pipreqs ./pythonVersion --force
+
 # Run tests for the CLI application
-npm --prefix ./cli-app test &&
 
 # Run tests for the web server
-npm --prefix ./web-server test &&
 
 # Read the current version number from a file
 version=$(cat version.txt)
@@ -16,4 +17,4 @@ version=$((version + 1))
 echo $version > version.txt
 
 # Build the Docker image with the new version number
-docker build --build-arg VERSION=$version -t random-number-generator-service:$version .
+docker build --build-arg VERSION=$version -t random-number-generator-service:$version ./pythonVersion
