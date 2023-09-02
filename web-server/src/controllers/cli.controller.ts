@@ -4,22 +4,17 @@ const exec = util.promisify(require('node:child_process').exec);
 import express from 'express';
 const router = express.Router();
 
-router.get('/cli/test', (req, res) => {
-  const { exec } = require('child_process');
-  exec(
-    "echo 'status' > my_pipe",
-    (error: { message: any }, stdout: any, stderr: any) => {
-      if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-      }
-      res.send(`stdout: ${stdout}`);
+router.get('/test', async (req, res) => {
+  try {
+    const { stdout, stderr } = await exec('echo Connection Test');
+    if (stderr) {
+      res.status(500).send({ error: stderr });
+      return;
     }
-  );
+    res.send({ message: stdout.trim() });
+  } catch (error) {
+    res.status(500).send({ error: (error as Error).message });
+  }
 });
 
 router.get('/range', async (req, res) => {

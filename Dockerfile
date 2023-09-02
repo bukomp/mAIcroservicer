@@ -37,8 +37,5 @@ ENV PATH /usr/src/app/cli-app:$PATH
 # Bind the app to port 3000
 EXPOSE 3000
 
-# Return to Web-Server folder
-RUN cd ..
-
 # Start web-server
 CMD ["node", "./dist/app.js"]

@@ -10,3 +10,8 @@ npm-debug.log
 # TypeScript
 dist/
 *.tsbuildinfo
+
+#CLI
+cli-app/cli_app
+
+#Server
