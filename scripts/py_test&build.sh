@@ -17,4 +17,4 @@ version=$((version + 1))
 echo $version > version.txt
 
 # Build the Docker image with the new version number
-docker build --build-arg VERSION=$version -t random-number-generator-service:$version ./pythonVersion
+docker build --build-arg VERSION=$version -t ai-service:$version ./gptVersion
