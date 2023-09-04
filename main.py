@@ -1,11 +1,14 @@
+import json
 import os
+import re
 import openai
-openai.organization = ""
-openai.api_key = ""
+openai.organization = os.environ.get('GPT-ORG')
+openai.api_key = os.environ.get('GPT-KEY')
 openai.Model.list()
 
 systemPrompt = """
-  file must start with ---{name of the file} and end with ---.
+  use this template when creating files ---{name of file}---\n`.*?\n{content}`
+  do not give any trivia, give only pure code.
   do not decorate text in any other way.
   If answer is not complete you must ask if I want to continue at the end.
   Code must be runnable and must not contain errors. 
@@ -24,6 +27,23 @@ The requirements.txt file lists the Python packages required by the project, whi
 return answer to a prompt in a string format.
 """
 
+
+def extract_files(content):
+  pattern = r"---(.*?)---.*?`.*?\n(.*?)`"
+  matches = re.findall(pattern, content, re.DOTALL)
+
+  files = []
+  for match in matches:
+    # Remove markdown code block delimiters from the content
+
+    file_name = match[0].strip()
+    file_content = match[1].strip()
+
+    files.append({"name": file_name, "content": file_content})
+
+  return files
+
+
 # Create a chat completion with the user message "Hello, world!"
 chat_completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
@@ -33,4 +53,30 @@ chat_completion = openai.ChatCompletion.create(
     ]
 )
 
-print(chat_completion)  # type: ignore
+
+response = chat_completion.choices[0].message['content']  # type: ignore
+print(response)
+# This should be extracted from the context
+microservice_name = 'random_number_generator'
+base_dir = 'microservices'
+microservice_dir = os.path.join(base_dir, microservice_name)
+
+os.makedirs(microservice_dir, exist_ok=True)
+
+file_contents = extract_files(response)
+print(file_contents)
+
+
+for file_content in file_contents:
+
+  file_name = file_content['name']
+  content = file_content['content']
+  file_path = os.path.join(os.getcwd(), microservice_dir, file_name.strip())
+
+  # Check if the directory exists, if not create it
+  os.makedirs(os.path.dirname(file_path), exist_ok=True)
+  try:
+    with open(file_path, 'x') as file:
+      file.write(content)
+  except OSError as e:
+    print(e)
