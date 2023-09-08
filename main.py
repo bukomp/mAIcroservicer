@@ -30,6 +30,8 @@ CLI application file (you must name this file accordingly) contains the CLI appl
 The requirements.txt file lists the Python packages required by the project, include to this file packages that were used in this project.
 """
 
+# add possible option
+# on/off options
 systemPrompt = """
   - Follow exactly this template when creating files: 
     ---{name of file}---
@@ -48,6 +50,10 @@ systemPrompt = """
 prompt = """
 give me a Python project that includes a command-line interface (CLI) application and a web server. The CLI application generates a specified count of random numbers within a given range, while the web server provides several endpoints, including one that uses the CLI application.
 Cli takes three arguments: the minimum and maximum values of the range, and the count of numbers to generate. 
+"""
+
+prompt2 = """
+give me a Python project that includes a command-line interface (CLI) application and a web server. The CLI application context is 'while give me a joke of the day service'
 """
 
 
