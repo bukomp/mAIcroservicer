@@ -1,71 +1,51 @@
+# Microservice Generator
 
-# CLI App and Web Server
+This project is a Python-based microservice generator. It uses OpenAI's GPT model to generate Python microservices based on given prompts. The generated microservices include a web server for handling API requests and a business logic component, which could be a command-line interface (CLI) application or other component.
 
-This repository contains two applications: a Command Line Interface (CLI) application and a Web Server. The CLI application receives commands and returns responses, while the Web Server handles requests and communicates with the CLI application.
+## Table of Contents
 
-## Getting Started
+1. [How it Works](#how-it-works)
+2. [How to Run](#how-to-run)
+3. [Dependencies](#dependencies)
+4. [Configuration](#configuration)
+5. [Note](#note)
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+## How it Works
 
-### Prerequisites
+The main function of the project is located in `main.py`. Here's a step-by-step guide on how it works:
 
-- Node.js
-- Docker
-- Docker Compose
+1. It takes a prompt as input, which describes the Python project to be generated.
+2. The prompt is passed to the `gpt_main` function in `gpt_generator/gpt_main.py`, which uses OpenAI's GPT model specified in `.env.secret` to generate the Python project.
+3. The generated project is returned as a string, which is then passed to the `extract_files` function in `helpers/code_extractor.py`. This function extracts the individual files from the generated project.
+4. The extracted files are then written to a new microservice directory by the `write_microservice_files` function in `helpers/file_writer.py`.
+5. The name of the new microservice is determined by the `microservice_count` function in `helpers/microservice_counter.py`, which counts the existing microservices.
 
-### Installation
+## How to Run
 
-1. Clone the repository:
+To run the project, follow these steps:
 
-2. Navigate to the project directory:
-```
-cd your-repo-directory
-```
+1. Navigate to the project directory in your terminal.
+2. Depending on your operating system, run one of the following commands:
+   - For Unix-based systems (like Linux or MacOS), run the command `./scripts/start_app.sh`.
+   - For Windows systems, run the command `./scripts/start_app.ps1`.
 
-3. Build and run the Docker containers:
-```
-docker-compose up --build
-```
+## Dependencies
 
-## Usage
+The project requires the following dependencies:
 
-### CLI App
+- Python 3.6 or higher
+- OpenAI-API key
+- The `dotenv`, `openai` Python packages
 
-The CLI App supports the following commands:
+These dependencies can be installed by running the command `pip install -r requirements.txt` in your terminal.
 
-- `hello`: Greets the user.
-- `status`: Shows the CLI status.
-- `help`: Shows a list of available commands.
-- `exit`: Closes the CLI app.
+## Configuration
 
-### Web Server
+The project uses environment variables for configuration. These are loaded from `.env.shared` and `.env.secret` files by the `config` dictionary in `helpers/config.py`. The `.env.shared` file contains shared development variables, while the `.env.secret` file contains sensitive variables.
 
-The Web Server exposes the following endpoints:
+Please ensure that these files exist in your project directory and that they contain the necessary variables. For example, you will need to provide your OpenAI organization and API key.
 
-- `GET /`: Returns 'Hello World!'.
-- `POST /api/cli/test`: Returns 'CLI test request received'.
+## Note
 
-## Development
+The generated Python projects are saved in a directory specified by the `BASE_DIR` environment variable. If this directory does not exist, it will be created.
 
-For development, you can run each application separately:
-
-### CLI App
-```
-cd cli-app
-npm install
-npm run dev
-```
-
-### Web Server
-```
-cd web-server
-npm install
-npm run dev
-```
-
-## Built With
-
-- Node.js
-- TypeScript
-- Express
-- Docker
