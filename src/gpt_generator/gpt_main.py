@@ -1,17 +1,16 @@
 
 from helpers.config import config
 import openai
-import os
 from prompts.system import *
 
 
 def gpt_main(prompt: str) -> str:
-  openai.organization = config.get('GPT_ORG')
-  openai.api_key = config.get('GPT_KEY')
+  openai.organization = config['GPT_ORG']
+  openai.api_key = config['GPT_KEY']
   openai.Model.list()
   # Create a chat completion
   chat_completion = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo",
+      model=config['GPT_MODEL'],
       messages=[
           {"role": "system", "content": systemPrompt},
           {"role": "system", "content": systemPrompt_codeSnippetExample},
