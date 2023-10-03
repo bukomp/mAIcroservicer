@@ -1,3 +1,5 @@
 microservices
 microservices/**
 microservices/*
+.env**
+**/__pycache__
