@@ -5,3 +5,4 @@ microservices/*
 !.env.shared
 
 **/__pycache__
+version.txt
