@@ -1,5 +1,5 @@
 import os
-from prompts.system import *
+from helpers.read_user_input import read_user_input
 from helpers.code_extractor import extract_files
 from helpers.microservice_counter import microservice_count
 from helpers.config import config
@@ -7,17 +7,18 @@ from gpt_generator.gpt_main import gpt_main
 from helpers.file_writer import write_microservice_files
 
 
-prompt = """
-give me a Python project that includes a command-line interface (CLI) application and a web server. The CLI application generates a specified count of random numbers within a given range, while the web server provides several endpoints, including one that uses the CLI application.
-Cli takes three arguments: the minimum and maximum values of the range, and the count of numbers to generate. 
-"""
-
-prompt2 = """
-give me a Python project that includes a command-line interface (CLI) application and a web server. The CLI application context is 'while give me a joke of the day service'
-"""
+# prompt = """
+# give me a Python project that includes a command-line interface (CLI) application and a web server. The CLI application generates a specified count of random numbers within a given range, while the web server provides several endpoints, including one that uses the CLI application.
+# Cli takes three arguments: the minimum and maximum values of the range, and the count of numbers to generate.
+# """
+#
+# prompt2 = """
+# give me a Python project that includes a command-line interface (CLI) application and a web server. The CLI application context is 'while give me a joke of the day service'
+# """
 
 
 def main() -> None:
+  prompt = read_user_input()
 
   # Extract the response content
   response = gpt_main(prompt)  # type: ignore
