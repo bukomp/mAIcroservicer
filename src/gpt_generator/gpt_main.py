@@ -1,7 +1,7 @@
 
 from helpers.config import config
 import openai
-from prompts.system import *
+from prompts.system_v0_2 import *
 
 
 def gpt_main(prompt: str) -> str:
@@ -13,9 +13,6 @@ def gpt_main(prompt: str) -> str:
       model=config['GPT_MODEL'],
       messages=[
           {"role": "system", "content": systemPrompt},
-          {"role": "system", "content": systemPrompt_codeSnippetExample},
-          {"role": "system", "content": systemPrompt_requiredFiles},
-          {"role": "system", "content": systemPrompt_under_constructions},
           {"role": "user", "content": prompt},
       ],
       temperature=0.2
