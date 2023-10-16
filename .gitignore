@@ -1,12 +1,8 @@
-# Node modules
-node_modules/
+microservices
+microservices/**
+microservices/*
+.env**
+!.env.shared
 
-# Docker
-.dockerignore
-
-# Express
-npm-debug.log
-
-# TypeScript
-dist/
-*.tsbuildinfo
+**/__pycache__
+version.txt
