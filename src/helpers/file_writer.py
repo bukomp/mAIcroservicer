@@ -8,8 +8,6 @@ def write_microservice_files(microservice_dir: str, file_contents: list[dict[str
     content = file_content['content']
     file_path = os.path.join(os.getcwd(), microservice_dir, file_name.strip())
 
-    # Check if the directory exists, if not create it
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
     try:
       with open(file_path, 'x') as file:
         file.write(content)

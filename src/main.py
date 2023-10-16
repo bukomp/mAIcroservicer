@@ -7,21 +7,7 @@ from gpt_generator.gpt_main import gpt_main
 from helpers.file_writer import write_microservice_files
 
 
-# prompt = """
-# give me a Python project that includes a command-line interface (CLI) application and a web server. The CLI application generates a specified count of random numbers within a given range, while the web server provides several endpoints, including one that uses the CLI application.
-# Cli takes three arguments: the minimum and maximum values of the range, and the count of numbers to generate.
-# """
-#
-# prompt2 = """
-# give me a Python project that includes a command-line interface (CLI) application and a web server. The CLI application context is 'while give me a joke of the day service'
-# """
-
-
 def main() -> None:
-  prompt = read_user_input()
-
-  # Extract the response content
-  response = gpt_main(prompt)  # type: ignore
 
   # Define the base directory for microservices
   if not os.path.exists(config["BASE_DIR"]):
@@ -30,6 +16,21 @@ def main() -> None:
   # Define the new microservice name and directory
   microservice_name = 'microservice' + str(microservice_count())
   microservice_dir = os.path.join(config["BASE_DIR"], microservice_name)
+
+  # Check if the directory exists, if not create it
+  os.makedirs(microservice_dir, exist_ok=True)
+
+  prompt = read_user_input()
+
+  # Create and write to user_input.txt and response.txt in the microservice directory
+  with open(os.path.join(microservice_dir, 'user_input.txt'), 'w') as user_input_file:
+    user_input_file.write(prompt)
+
+  # Extract the response content
+  response = gpt_main(prompt)  # type: ignore
+
+  with open(os.path.join(microservice_dir, 'response.txt'), 'w') as response_file:
+    response_file.write(response)
 
   # Extract the files from the response
   file_contents = extract_files(response)
