@@ -16,3 +16,11 @@ Content-Type: application/json
 {
   "question": "Will this work?"
 }
+
+### jsfuck service
+POST  http://127.0.0.1:3000/
+Content-Type: application/json
+
+{
+  "text": "console.log(\"wow\")"
+}
