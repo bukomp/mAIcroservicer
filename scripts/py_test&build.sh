@@ -3,7 +3,7 @@
 # Check if Docker is running
 if ! docker info >/dev/null 2>&1; then
     echo "Docker is not running. Terminating script execution."
-    exit 1
+    return
 fi
 
 # Run tests for the CLI application
@@ -21,11 +21,13 @@ then
     
     # If no version number is provided, read the current version number from a file
     version=$(cat version.txt)
+    echo "./microservices/microservice$version"
+    echo $version
 
     # Check if the microservice file exists
     if [ ! -f "./microservices/microservice$version" ]; then
         echo "Microservice file v$version does not exist. Terminating script execution."
-        exit 1
+        return
     fi
 
     # Write the new version number back to the file
@@ -36,4 +38,4 @@ else
 fi
 
 # Build the Docker image with the new version number
-docker build --build-arg VERSION=$version -t ai-service:$version ./microservices/microservice$version || { echo 'Docker build failed' ; exit 1; }
+docker build --build-arg VERSION=$version -t ai-service:$version ./microservices/microservice$version || { echo 'Docker build failed' ; return; }
