@@ -6,36 +6,27 @@ if ! docker info >/dev/null 2>&1; then
     return
 fi
 
-# Run tests for the CLI application
-
-# Run tests for the web server
-
-# Read the current version number from a file
-# Check if a version number is provided as an argument
-if [ -z "$1" ]
+if [ -z "$n" ]
 then
-    # Check if version.txt exists, if not create it with 0 as content
-    if [ ! -f version.txt ]; then
-        echo 0 > version.txt
-    fi
-    
-    # If no version number is provided, read the current version number from a file
-    version=$(cat version.txt)
-    echo "./microservices/microservice$version"
-    echo $version
-
-    # Check if the microservice file exists
-    if [ ! -f "./microservices/microservice$version" ]; then
-        echo "Microservice file v$version does not exist. Terminating script execution."
-        return
-    fi
-
-    # Write the new version number back to the file
-    echo $((version + 1)) > version.txt
+    microservice=$(ls -v ./microservices | tail -n 1)
+    microservice_version=$(echo $microservice | cut -d '-' -f 2)
+    microservice_name=$(echo $microservice | cut -d '-' -f 4 | cut -d '/' -f 1)
 else
-    # If a version number is provided, use it
-    version=$1
+    microservice_version=$(echo $n | cut -d '-' -f 2)
+    microservice_name=$(echo $n | cut -d '-' -f 4 | cut -d '/' -f 1)
 fi
 
+echo $microservice_name
+
+version=$(docker images | grep $microservice_name | sort -r | head -n 1 | awk '{print $2}')
+if [ -z "$version" ]
+then
+    version="1.0.0"
+else
+    version=$(echo $version | awk -F. -v OFS=. '{$NF++;print}')
+fi
+
+
+
 # Build the Docker image with the new version number
-docker build --build-arg VERSION=$version -t ai-service:$version ./microservices/microservice$version || { echo 'Docker build failed' ; return; }
+docker build --build-arg VERSION=$version -t $microservice_name:$version ./microservices/-$microservice_version--$microservice_name || { echo 'Docker build failed' ; return; }

@@ -1,42 +1,42 @@
 import os
+
 from helpers.read_user_input import read_user_input
 from helpers.code_extractor import extract_files
 from helpers.microservice_counter import microservice_count
 from helpers.config import config
 from gpt_generator.gpt_main import gpt_main
 from helpers.file_writer import write_microservice_files
+from models.file_interface import File_Collection
 
 
 def main() -> None:
+  try:
+    if not os.path.exists(config["BASE_DIR"]):
+      os.makedirs(config["BASE_DIR"])
 
-  # Define the base directory for microservices
-  if not os.path.exists(config["BASE_DIR"]):
-    os.makedirs(config["BASE_DIR"])
+    prompt = read_user_input()
 
-  # Define the new microservice name and directory
-  microservice_name = 'microservice' + str(microservice_count())
-  microservice_dir = os.path.join(config["BASE_DIR"], microservice_name)
+    list_of_files: File_Collection = gpt_main(prompt)
 
-  # Check if the directory exists, if not create it
-  os.makedirs(microservice_dir, exist_ok=True)
+    write_files(list_of_files)
 
-  prompt = read_user_input()
+  except Exception as e:
+    print(f"An error occurred: {e}{__file__}")
 
-  # Create and write to user_input.txt and response.txt in the microservice directory
-  with open(os.path.join(microservice_dir, 'user_input.txt'), 'w') as user_input_file:
-    user_input_file.write(prompt)
 
-  # Extract the response content
-  response = gpt_main(prompt)  # type: ignore
+def write_files(list_of_files: File_Collection):
 
-  with open(os.path.join(microservice_dir, 'response.txt'), 'w') as response_file:
-    response_file.write(response)
+  microservice_root_dir = os.path.join(
+      config["BASE_DIR"], f"-{microservice_count()}--{list_of_files.project_root}")
 
-  # Extract the files from the response
-  file_contents = extract_files(response)
+  microservice_raw_files_root_dir = os.path.join(
+      microservice_root_dir, "raw_responses")
 
-  # Write files
-  write_microservice_files(microservice_dir, file_contents)
+  write_microservice_files(microservice_root_dir,
+                           list_of_files.collections["formatted_responses"])
+
+  write_microservice_files(microservice_raw_files_root_dir,
+                           list_of_files.collections["raw_responses"])
 
 
 if __name__ == "__main__":
