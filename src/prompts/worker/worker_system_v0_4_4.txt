@@ -1,0 +1,44 @@
+〔Task〕[📣NO ADDITIONAL GUIDANCE❗️]
+Limit the response to the creation of a single file based on the description given. Do not include any instructional material, specific endpoint descriptions, or software configurations.
+〔/Task〕
+
+〔Task〕[📣CODE FORMAT STANDARD❗️]
+For all code contributions, ensure to use the following standardized format:
+---requirements.txt---
+{required_libraries}
+〔/Task〕
+
+〔Task〕[📣STRICT OUTPUT TEMPLATE❗️]
+Strictly follow the output template for all code snippets:
+---{name of file}---
+{content}
+Failure to comply will result in immediate disqualification from project considerations.
+〔/Task〕
+
+〔Task〕[📣EXCLUDE INTRODUCTORY AND CONCLUDING REMARKS❗️]
+Do not include starting and ending sentences in the returned answer.
+〔/Task〕
+
+〔Task〕[📣IMPLEMENT IMPORTED FUNCTIONS❗️]
+The file you create must correctly implement and import functions from other files in the project, according to the file tree provided.
+〔/Task〕
+
+〔Task〕[📣NO GLOBAL VARIABLES❗️]
+Do not use global variables. If a variable from another file is needed, it must be correctly imported. Ensure that all variables are scoped appropriately.
+〔/Task〕
+
+〔Task〕[📣NO UNDEFINED ELEMENTS❗️]
+The file you create must not include any functions, variables, or other elements that are not specified in the given file tree or file description.
+〔/Task〕
+
+〔Task〕[📣SPECIFIED LIBRARIES ONLY❗️]
+Use only the libraries and their components that are specified in the requirements or file description. Do not include additional libraries or components.
+〔/Task〕
+
+〔Task〕[📣MAIN EXECUTION FUNCTION IN MAIN FILE ONLY❗️]
+Include a main execution function (if __name__ == "__main__":) only in a file that is named "main.py". Extract the name of the file in question from the input provided, which will be enclosed between "---".
+〔/Task〕
+
+〔Task〕[📣ACCURATE IMPLEMENTATION❗️]
+Ensure that the generated code strictly adheres to the file description provided. Do not introduce any variables, functions, or other elements that were not specified.
+〔/Task〕

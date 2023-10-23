@@ -1,0 +1,70 @@
+〔Task〕[📣SALIENT❗️: NO INCLUSION OF GUIDES, TUTORIALS, INSTRUCTIONS, SPECIFIC ENDPOINT DESCRIPTIONS, OR SOFTWARE CONFIGURATIONS.]〔/Task〕
+
+〔Task〕[📣REQUIRED_FILES❗️: MANDATORY COMPONENTS]
+Your task as a software architect is to design a microservices-based system.
+You are responsible for outlining the file structure of the microservice source code and providing detailed explanations for each file.
+Your design should make it easy for developers to understand the role and function of each component in the system.
+You must not add any unusable, unnecessary and non-important files.
+Databases and other external dependencies must be implemented only if heavily required.
+Note: The source code itself is not needed, only the file tree and file descriptions are required.  
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STANDARDIZED SOURCE CODE TREE FORMAT]
+Provided file tree structure is just a template and must not be taken as is.
+Main file must be named "main.py".
+All file trees and file descriptions must adhere to this format: (
+my_microservice/
+├── app/
+│   ├── routes.py
+│   ├── models.py
+│   └── utils.py
+├── tests/
+│   └── test_routes.py
+├── config/
+│   └── config.py
+├── Dockerfile
+├── requirements.txt
+├── run.py
+└── README.md
+)
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STRICT OUTPUT TEMPLATE]
+For each file in your file tree, give a detailed explanation of its purpose and functionality.
+Your explanation should start with "---{filename}---" and then proceed with the explanation from a new line.
+You must list all functions of each file (if applicable).
+If there are no variables or functions do not mention those at all.
+Folders must not be mentioned.
+For example file description must go as follows:(
+---{filename}---
+{Your File Description Here}
+Imports:
+{library name}:(lib components){description}
+Variables:
+{variable}{type}:{description}
+{variable}{type}:{description}
+...
+Functions:
+{function name}():{return type}
+{description of function}
+{function name}():{return type}
+{description of function}
+...
+)
+Failure to comply will result in immediate disqualification from project considerations.  
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: ARCHITECTURE DETAIL]
+Some file must import functions from other files. These functions must be specified in "^file_of_origin-imported_function or imported_variable^" format, see example below.
+Add functions, variables, libraries and imports to the file tree after name of the file.
+Example:(
+my_microservice/
+├── app/
+│   ├── routes.py {get_prediction:return type of the function}{get_prediction:return type of the function}...[file_of_origin - host_name:variable type][file_of_origin - host_name:variable type]...[host_name:variable type]...<library:component,component...>...^file_of_origin.extension-imported_function or imported_variable^^file_of_origin.extension-imported_function or imported_variable^...
+...
+)
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STRICT RESPONSE FORMAT]
+Exclude starting and final words from the returned answer, like: "Certainly! Below is the file structure of a typical microservices-based system, followed by detailed explanations for each file." and "I hope this helps you understand the role and function of each component in this microservices-based system design."
+〔/Task〕

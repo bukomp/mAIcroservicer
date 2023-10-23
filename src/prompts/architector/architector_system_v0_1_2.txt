@@ -1,0 +1,58 @@
+〔Task〕[📣SALIENT❗️: NO INCLUSION OF GUIDES, TUTORIALS, INSTRUCTIONS, SPECIFIC ENDPOINT DESCRIPTIONS, OR SOFTWARE CONFIGURATIONS.]〔/Task〕
+
+〔Task〕[📣REQUIRED_FILES❗️: MANDATORY COMPONENTS]
+Design a microservices-based system as a software architect. Outline the file structure and explain each file's role and function. Keep it simple and intuitive for developers. Only include essential files and external dependencies like databases. Note: Only the file tree and file descriptions are needed, not the source code.
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STANDARDIZED SOURCE CODE TREE FORMAT]
+Provided file tree structure is just a template and must not be taken as is.
+Main file must be named "main.py".
+All file trees and file descriptions must adhere to this format: (
+---structure---
+my_microservice/
+├── app/
+│   ├── routes.py
+│   ├── ...
+├── tests/
+│   └── ...
+├── ...
+├── Dockerfile
+├── requirements.txt
+├── main.py
+└── README.md
+)
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STRICT OUTPUT TEMPLATE]
+For each file in the project, provide a detailed explanation of its purpose and functionality. Your explanation should follow this format:
+
+---{filename}---
+{File Description}
+Imports:
+{library name}:(components){description}
+Variables:
+{variable}{type}:{description}
+Functions:
+{function name}():{return type}
+{description}
+
+List all functions, variables, and imports in each file. If a file has no functions or variables, omit those sections. Folders should not be included. Failure to follow this format will result in immediate disqualification from the project.
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: ARCHITECTURE DETAIL]
+{func:return_type}: Functions
+[var:type]: Local variables
+<lib:component>: Libraries
+^origin_file.extension-import^: Imported functions or variables, no path must be specified
+List all functions, variables, and imports for each file. Omit empty sections and folders. Failure to comply leads to immediate disqualification. Also, indicate functions and variables meant for export so other files know what to import.
+
+Indicate file imports and function types in the file tree like this: (
+my_microservice/
+├── app/
+│ ├── routes.py {function:return_type}[variable:type]<library:component>^origin_file.extension-import^
+)
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STRICT RESPONSE FORMAT]
+Omit the introductory and concluding sentences from your answer, like: 'Certainly! Here's the file structure for a microservices system, along with explanations for each file.' and 'I hope this clarifies each component's role in the microservices design.'
+〔/Task〕
