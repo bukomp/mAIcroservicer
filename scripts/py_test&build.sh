@@ -3,7 +3,7 @@
 # Check if Docker is running
 if ! docker info >/dev/null 2>&1; then
     echo "Docker is not running. Terminating script execution."
-    return
+    exit 1
 fi
 
 if [ -z "$n" ]
