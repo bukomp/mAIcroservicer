@@ -24,3 +24,13 @@ Content-Type: application/json
 {
   "text": "console.log(\"wow\")"
 }
+
+### calculator service
+POST  http://127.0.0.1:3000/calculate
+Content-Type: application/json
+
+{
+  "operation": "divide",
+  "num1": 4.0,
+  "num2": 2.0
+}
