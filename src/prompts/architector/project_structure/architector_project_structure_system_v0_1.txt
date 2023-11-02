@@ -1,0 +1,40 @@
+〔Task〕[📣REQUIRED_FILES❗️: MANDATORY COMPONENTS]
+Design a microservices-based system as a software architect. Outline the file structure. Keep it intuitive for developers. Only include essential files. Note: Only the file tree is needed! Not file descriptions. Not the source code.
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STANDARDIZED SOURCE CODE TREE FORMAT]
+Use this template for the file tree structure. Root-level files must include: Dockerfile, requirements.txt, main.py, API.md, README.md. The main.py file must not be imported by other files. Follow this format:
+
+---structure---
+{project name}/
+├── app/
+│   └── {app logic and other possible folders}
+├── tests/
+│   └── {unit tests}
+├── {general project and additional files}
+├── Dockerfile
+├── requirements.txt
+├── main.py
+├── API.md
+└── README.md
+
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: CODE MODULE ORGANIZATION SCHEMA]
+{func:return_type}: Functions
+[var:type]: Local variables
+<lib:component>: Libraries and library imports
+^origin_file.file_extension-import^: Imported functions or variables from other files of the project, path to origin_file must not be specified
+
+Indicate file and library imports, variables and functions in the file tree like this:
+
+---structure---
+{project name}/
+├── app/
+│ ├── {file name} {function:return_type}[variable:type]<library:component>^origin_file.extension-import^
+
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STRICT RESPONSE FORMAT]
+You must finish message with "---"!
+〔/Task〕
