@@ -1,0 +1,54 @@
+{
+  "ai_config": {
+    "architectors": [
+      {
+        "name": "structure_architector",
+        "description": "AI Entity responsible for managing the structure of the system",
+        "system_prompts": ["architector.project_structure.0_1"],
+        "assistant_prompts": [],
+        "user_prompts": [],
+        "ignore_general_system_prompts": false,
+        "model": "gpt-4",
+        "temperature": "0.42"
+      },
+      {
+        "name": "file_architector",
+        "description": "AI Entity responsible for managing the files in the system",
+        "system_prompts": ["architector.file_description.0_1"],
+        "assistant_prompts": [],
+        "user_prompts": [],
+        "ignore_general_system_prompts": false,
+        "model": "gpt-4",
+        "temperature": "0.2"
+      }
+    ],
+    "workers": [
+      {
+        "name": "generator",
+        "description": "AI Entity responsible for generating content",
+        "system_prompts": [],
+        "assistant_prompts": [],
+        "user_prompts": [],
+        "ignore_general_system_prompts": false,
+        "model": "gpt-3.5-turbo",
+        "temperature": "0.29"
+      }
+    ],
+    "acceptance": [
+      {
+        "name": "structure_acceptance",
+        "description": "",
+        "system_prompts": [],
+        "assistant_prompts": [],
+        "user_prompts": [],
+        "ignore_general_system_prompts": false,
+        "model": "gpt-4",
+        "temperature": "0.42"
+      }
+    ],
+
+    "general_architector_system_prompt": "architector.0_2",
+    "general_worker_system_prompt": "worker.0_4_7"
+  },
+  "base_dir": "microservices"
+}

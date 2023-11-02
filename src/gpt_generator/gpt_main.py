@@ -1,11 +1,11 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Union
 
-from gpt_generator.modules.architector import gpt_architector
+from gpt_generator.modules.file_description_architector import gpt_file_description_architector
+from gpt_generator.modules.structure_architector import gpt_project_structure_architector
 from gpt_generator.modules.worker import gpt_worker
 from helpers.architecture_extractor import structure_2_dict
 from helpers.code_extractor import extract_code
-from models.file_interface import File_Collection, File_to_write
+from models.file_interface import FileCollection, File
 from models.gpt_responses_interface import ArchitectorResponse
 
 import logging
@@ -13,20 +13,25 @@ import logging
 logging.basicConfig(level=logging.ERROR)
 
 
-def gpt_main(prompt: str) -> File_Collection:
+def gpt_main(prompt: str) -> FileCollection:
   try:
     # Generate initial project and response
-    project, response = gpt_architector(prompt)
+    project, response = gpt_project_structure_architector(prompt)
 
     # Assert project is of the correct type
     assert isinstance(project, ArchitectorResponse)
 
-    # Initialize File_Collection
-    file_collection = File_Collection(project.name)
+    project, response = gpt_file_description_architector(project, prompt)
+
+    # Assert project is of the correct type
+    assert isinstance(project, ArchitectorResponse)
+
+    # Initialize FileCollection
+    file_collection = FileCollection(project.name)
 
     # Add initial response to collection
     file_collection.collections["raw_responses"].append(
-        File_to_write("architector.txt", str(response))
+        File("architector.txt", str(response))
     )
 
     structure_dictionary: dict[str, str] = structure_2_dict(project.structure)
@@ -46,11 +51,11 @@ def gpt_main(prompt: str) -> File_Collection:
 
           # Add results to the collection
           file_collection.collections["raw_responses"].append(
-              File_to_write(f"raw_{file.file_name}.txt", result, "")
+              File(f"raw_{file.file_name}.txt", result, "")
           )
           file_collection.collections["formatted_responses"].append(
-              File_to_write(file.file_name, extract_code(result),
-                            structure_dictionary[file.file_name])
+              File(file.file_name, extract_code(result),
+                   structure_dictionary[file.file_name])
           )
         except Exception as e:
           # Log any exceptions that occur within the thread
@@ -61,4 +66,4 @@ def gpt_main(prompt: str) -> File_Collection:
   except Exception as e:
     # Log any other exceptions
     logging.error(f"An error occurred: {e}")
-    return File_Collection("")
+    return FileCollection("")

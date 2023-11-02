@@ -1,13 +1,16 @@
-import os
 from dotenv import dotenv_values
+import json
 
-config: dict[str, str] = {
-    # load shared development variables
-    **{k: v if v is not None else '' for k, v in dotenv_values(".env.shared").items()},
+import os
+import signal
 
-    # load sensitive variables
-    **{k: v if v is not None else '' for k, v in dotenv_values(".env.secret").items()},
+from models.config.Secrets_interface import Secrets
+from models.config.config_interface import Config
 
-    # override loaded values with environment variables
-    **{k: v if v is not None else '' for k, v in os.environ.items()},
-}
+env = dict(dotenv_values(".env"))
+if "GPT_KEY" not in env or "GPT_ORG" not in env:
+  raise KeyError("GPT_KEY and/or GPT_ORG not found in .env.secret")
+else:
+  with open('config.json', 'r', encoding='utf-8') as f:
+    config: Config = Config(
+        dict(json.loads(f.read())), Secrets(env["GPT_ORG"], env["GPT_KEY"]))

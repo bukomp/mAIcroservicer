@@ -2,25 +2,32 @@
 
 class FileExplanation:
   def __init__(self, file_name: str, description: str):
-    self.file_name = file_name
-    self.description = description
+    self._file_name = file_name
+    self._description = description
 
-  def get(self):
-    return {
-        "file_name": self.file_name,
-        "description": self.description,
-    }
+  @property
+  def file_name(self) -> str:
+    return self._file_name
+
+  @property
+  def description(self) -> str:
+    return self._description
 
 
 class ArchitectorResponse:
   def __init__(self, name: str, structure: str, files: list[FileExplanation]):
-    self.name = name
-    self.structure = structure
-    self.files = files
+    self._name = name
+    self._structure = structure
+    self._files = files
 
-  def get(self):
-    return {
-        "name": self.name,
-        "structure": self.structure,
-        "files": [file.get() for file in self.files],
-    }
+  @property
+  def name(self) -> str:
+    return self._name
+
+  @property
+  def structure(self) -> str:
+    return self._structure
+
+  @property
+  def files(self) -> list[FileExplanation]:
+    return self._files

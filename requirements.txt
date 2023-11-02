@@ -1,2 +1,4 @@
 python-dotenv
 openai
+vulture
+aiohttp="3.9.0b0"

@@ -75,3 +75,14 @@ Variable | Description
 ## Note
 
 The generated Python projects are saved in a directory specified by the `BASE_DIR` environment variable. If this directory does not exist, it will be created.
+
+```mermaid
+graph TD;
+    A[Client] --> B[Load Balancer];
+    B --> C[Service1];
+    B --> D[Service2];
+    B --> E[Service3];
+    C --> F[Database1];
+    D --> G[Database2];
+    E --> H[Database3];
+```

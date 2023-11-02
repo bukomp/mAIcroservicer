@@ -1,50 +1,55 @@
 import openai
-import os
 
 from helpers.config import config
-from helpers.utils import format_version
+from models.gpt_requests_interface import Prompt
 
 
-def create_chat_completion(prompt_mode: str, temperature: float, system_prompts: list[str], user_prompts: list[str]) -> str:
+def create_chat_completion(
+        LLM_model: str,
+        temperature: float,
+        system_prompts: list[str] = [],
+        assistant_prompts: list[str] = [],
+        user_prompts: list[str] = [],
+        prompts_in_order: list[Prompt] = []
+) -> str:
   """
-  Create a chat completion using OpenAI GPT-3.
+  This function creates a chat completion using OpenAI's model.
 
   Args:
-      prompt_mode (str): The mode in which the prompt is generated. Must be either 'architector' or 'worker'.
-      temperature (float): The temperature of the model's output. Higher values result in more random completions, while lower values make the output more focused.
-      system_prompts (list[str]): The list of system prompts to be included in the chat completion.
-      user_prompts (list[str]): The list of user prompts to be included in the chat completion.
+      LLM_model (str): The model to be used for generating the chat completion.
+      temperature (float): The temperature of the model's output. Higher values result in more random completions, while lower values make the output more deterministic.
+      system_prompts (list[str], optional): A list of system prompts to be included in the chat completion. Defaults to an empty list.
+      assistant_prompts (list[str], optional): A list of assistant prompts to be included in the chat completion. Defaults to an empty list.
+      user_prompts (list[str], optional): A list of user prompts to be included in the chat completion. Defaults to an empty list.
+      prompts_in_order (list[Prompt], optional): A list of prompts in the order they should appear in the chat completion. Defaults to an empty list.
 
   Returns:
-      dict: The response from the OpenAI ChatCompletion.create() API.
-
-  Raises:
-      AssertionError: If the prompt_mode is not 'architector' or 'worker'.
-
+      str: The content of the message from the first choice in the chat completion.
   """
-  assert prompt_mode in [
-      "architector", "worker"], "Invalid prompt_mode. Expected 'architector' or 'worker'"
+  try:
+    openai.organization = config.secrets.GPT_ORG
+    openai.api_key = config.secrets.GPT_KEY
+    openai.Model.list()
+    chat_completion = openai.ChatCompletion.create(
+        model=LLM_model,
+        messages=[
+            * [{"role": "system", "content": system_prompt}
+               for system_prompt in system_prompts],
+            * [{"role": "system", "content": assistant_prompt}
+               for assistant_prompt in assistant_prompts],
+            * [{"role": "user", "content": user_prompt}
+               for user_prompt in user_prompts],
+            * [prompt_in_order
+               for prompt_in_order in prompts_in_order],
+        ],
+        temperature=temperature
+    )
+    choise = chat_completion.choices[0]  # type: ignore
+    content: str = choise.message['content']
 
-  openai.organization = config['GPT_ORG']
-  openai.api_key = config['GPT_KEY']
-  openai.Model.list()
-  chat_completion = openai.ChatCompletion.create(
-      model=config[f"GPT_{prompt_mode.upper()}_MODEL"],
-      messages=[
-          {"role": "system", "content": get_system_prompt(prompt_mode)},
-          * [{"role": "system", "content": system_prompt}
-             for system_prompt in system_prompts],
-          * [{"role": "user", "content": user_prompt}
-             for user_prompt in user_prompts],
-      ],
-      temperature=temperature
-  )
-  choise = chat_completion.choices[0]  # type: ignore
-  content: str = choise.message['content']
-  return content
+    print(content)
 
-
-def get_system_prompt(prompt_mode: str) -> str:
-  with open(os.path.join('src', 'prompts', prompt_mode,
-                         f"{prompt_mode}_system_v{format_version(config[f"{prompt_mode.upper()}_PROMPT_VERSION"])}.txt"), 'r') as file:
-    return file.read().replace('\n', '')
+    return content
+  except Exception as e:
+    print(f"An error occurred: {e} \n{__file__}")
+    return str(e)

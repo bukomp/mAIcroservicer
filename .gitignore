@@ -2,7 +2,7 @@ microservices
 microservices/**
 microservices/*
 .env**
-!.env.shared
+!.env.shared**
 
 **/__pycache__
 version.txt

@@ -4,6 +4,16 @@ import re
 from models.gpt_responses_interface import ArchitectorResponse, FileExplanation
 
 
+def project_extractor(content: str) -> ArchitectorResponse:
+  project_name_match = re.search(r"---structure---\n(.*?)/", content)
+  project_name: str = project_name_match.group(
+      1) if project_name_match else "project"
+  structure: str = extract_structure(content)
+  files: list[FileExplanation] = []
+  return ArchitectorResponse(
+      name=project_name, structure=structure, files=files)
+
+
 def extract_file_description(content: str) -> list[FileExplanation]:
   pattern = r"---(.*?)---\n([\s\S]*?)(?=---|$)"
   matches = re.findall(pattern, content)
@@ -21,17 +31,9 @@ def extract_structure(content: str) -> str:
 
   return matches[0].strip()
 
-
-def project_extractor(content: str) -> ArchitectorResponse:
-  project_name_match = re.search(r"---structure---\n(.*?)/", content)
-  project_name: str = project_name_match.group(
-      1) if project_name_match else "project"
-  structure: str = extract_structure(content)
-  files = extract_file_description(content)
-  return ArchitectorResponse(project_name, structure, files)
-
-
 # Re-run the function to exclude file names in the paths.
+
+
 def structure_2_dict(file_structure: str) -> dict:
   lines = file_structure.strip().split("\n")
   stack = []
@@ -63,3 +65,16 @@ def structure_2_dict(file_structure: str) -> dict:
     stack.append(name.replace('/', '').strip())
 
   return file_path_dict
+
+
+def strurcture_to_list_of_files(structure: str) -> list[str]:
+  """
+  Convert a structure string to a list of files.
+
+  Args:
+      structure (str): The structure string to be converted.
+
+  Returns:
+      list[str]: A list of files extracted from the structure string.
+  """
+  return list(structure_2_dict(structure).keys())
