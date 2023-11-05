@@ -27,8 +27,10 @@ async def gpt_worker(project: ArchitectorResponse, file_name: str, file_details:
           worker.model,
           float(worker.temperature),
           system_prompts,
-          worker.assistant_prompts + [],
-          worker.user_prompts + ([content] if content != None else []) + [project.structure, prompt])
+          ([content] if content != None else []) +
+          [] + worker.assistant_prompts,
+          [project.structure, prompt] + worker.user_prompts
+      )
 
     print(f"{file_name} --------------------------------------- completed ---------------")
     return content or ""
