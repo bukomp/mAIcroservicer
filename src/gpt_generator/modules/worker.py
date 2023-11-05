@@ -4,7 +4,7 @@ from models.gpt_responses_interface import ArchitectorResponse
 from helpers.config import config
 
 
-def gpt_worker(project: ArchitectorResponse, file_name: str, file_details: str) -> str:
+async def gpt_worker(project: ArchitectorResponse, file_name: str, file_details: str) -> str:
   try:
     prompt = f"""
     File Name: {file_name} \n
@@ -23,7 +23,7 @@ def gpt_worker(project: ArchitectorResponse, file_name: str, file_details: str) 
           + worker.system_prompts
           + [])
 
-      content = create_chat_completion(
+      content = await create_chat_completion(
           worker.model,
           float(worker.temperature),
           system_prompts,

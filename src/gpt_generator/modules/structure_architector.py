@@ -7,7 +7,7 @@ from helpers.config import config
 from models.gpt_responses_interface import ArchitectorResponse
 
 
-def gpt_project_structure_architector(prompt: str) -> list[ArchitectorResponse | str]:
+async def gpt_project_structure_architector(prompt: str) -> list[ArchitectorResponse | str]:
 
   try:
     architector_config = next(
@@ -19,7 +19,7 @@ def gpt_project_structure_architector(prompt: str) -> list[ArchitectorResponse |
       raise ValueError(
           "Architector 'structure_architector' not found in config.")
 
-    response: str = create_chat_completion(
+    response: str = await create_chat_completion(
         architector_config.model,
         float(architector_config.temperature),
         architector_config.system_prompts + [],

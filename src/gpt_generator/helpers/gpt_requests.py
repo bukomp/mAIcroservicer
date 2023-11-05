@@ -4,7 +4,7 @@ from helpers.config import config
 from models.gpt_requests_interface import Prompt
 
 
-def create_chat_completion(
+async def create_chat_completion(
         LLM_model: str,
         temperature: float,
         system_prompts: list[str] = [],
@@ -30,7 +30,7 @@ def create_chat_completion(
     openai.organization = config.secrets.GPT_ORG
     openai.api_key = config.secrets.GPT_KEY
     openai.Model.list()
-    chat_completion = openai.ChatCompletion.create(
+    chat_completion = await openai.ChatCompletion.acreate(
         model=LLM_model,
         messages=[
             * [{"role": "system", "content": system_prompt}
