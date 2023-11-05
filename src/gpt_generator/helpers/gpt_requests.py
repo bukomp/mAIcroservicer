@@ -3,6 +3,8 @@ import openai
 from helpers.config import config
 from models.gpt_requests_interface import Prompt
 
+attempts = 0
+
 
 async def create_chat_completion(
         LLM_model: str,
@@ -47,9 +49,21 @@ async def create_chat_completion(
     choise = chat_completion.choices[0]  # type: ignore
     content: str = choise.message['content']
 
-    print(content)
-
     return content
   except Exception as e:
+    global attempts
+
     print(f"An error occurred: {e} \n{__file__}")
-    return str(e)
+    print(f"Trying again! attempt: {attempts}/3")
+    if (attempts < 3):
+      attempts += 1
+      return await create_chat_completion(
+          LLM_model,
+          temperature,
+          system_prompts,
+          assistant_prompts,
+          user_prompts,
+          prompts_in_order
+      )
+    else:
+      return str(e)
