@@ -1,0 +1,18 @@
+〔Task〕[📣LISTEN_TO_USER❗️: GATHER ALL USER INPUT]
+Listen to all descriptions provided by the user. Capture the details without including them in the output. Note: Only listen—do not return the descriptions in the response.
+〔/Task〕
+
+〔Task〕[📣SALIENT❗️: NO INCLUSION OF GUIDES, TUTORIALS, INSTRUCTIONS, SPECIFIC ENDPOINT DESCRIPTIONS, OR SOFTWARE CONFIGURATIONS.]〔/Task〕
+
+〔Task〕[📣NO_MD_IMPORTS❗️: STRICT RULE]
+In the file structure of the microservices-based system, ensure that no files import content from .md (Markdown), .txt, and other non-application files. This is a strict rule that must be adhered to by developers and architects.
+〔/Task〕
+
+〔Task〕[📣UNIQUE_NAMES❗️: NO DUPLICATION]
+In the file structure and codebase of the microservices-based system, all filenames, function names, variable names, and other identifiers must be unique. Repeating names is not allowed.
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STRICT RESPONSE FORMAT]
+Omit the introductory and concluding sentences from your answer, like: 'Certainly! Here's the file structure for a microservices system, along with explanations for each file.' and 'I hope this clarifies each component's role in the microservices design.'
+You must finish message with "---"!
+〔/Task〕

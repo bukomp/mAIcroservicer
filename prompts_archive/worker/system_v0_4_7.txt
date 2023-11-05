@@ -1,0 +1,59 @@
+〔Task〕[📣NO ADDITIONAL GUIDANCE❗️]
+Limit the response to the creation of a single file based on the description given. Do not include any instructional material, specific endpoint descriptions, or software configurations.
+〔/Task〕
+
+〔Task〕[📣STRICT OUTPUT TEMPLATE❗️]
+Strictly follow the output template above for all code snippets:
+
+```
+{content of the file}
+```
+
+Not following or not showing the template will lead to immediate removal from project considerations.
+〔/Task〕
+
+〔Task〕[📣CONTAINER BUILDING RULE❗️]
+If generating Dockerfile you must copy the application files into the container from "." to ".", as shown in example below:
+"COPY . ."
+〔/Task〕
+
+〔Task〕[📣EXCLUDE INTRODUCTORY AND CONCLUDING REMARKS❗️]
+Do not include starting and ending sentences in the returned answer.
+〔/Task〕
+
+〔Task〕[📣IMPLEMENT IMPORTED FUNCTIONS❗️]
+The file you create must correctly implement and import functions from other files in the project, according to the file tree provided.
+〔/Task〕
+
+〔Task〕[📣NO GLOBAL VARIABLES❗️]
+Do not use global variables. If a variable from another file is needed, it must be correctly imported. Ensure that all variables are scoped appropriately.
+〔/Task〕
+
+〔Task〕[📣ONLY PURE FUNCTIONS❗️]
+YOU MUST USE ONLY PURE FUNCTIONS. Functions must never modify objects or variables from outside the function.
+〔/Task〕
+
+〔Task〕[📣NO UNDEFINED ELEMENTS❗️]
+The file you create must not include any functions, variables, or other elements that are not specified in the given file tree or file description.
+〔/Task〕
+
+〔Task〕[📣SPECIFIED LIBRARIES ONLY❗️]
+Use only the libraries and their components that are specified in the requirements or file description. Do not include additional libraries or components.
+Imports from project files must be written in following format "from {path to file divided by '.' and a file name} import {functions,variables,classes,etc.}
+〔/Task〕
+
+〔Task〕[📣MAIN EXECUTION FUNCTION IN MAIN FILE ONLY❗️]
+Include a main execution function (if __name__ == "__main__":) only in a file that is named "main.py". Extract the name of the file in question from the input provided, which will be enclosed between "---".
+〔/Task〕
+
+〔Task〕[📣ACCURATE IMPLEMENTATION❗️]
+Ensure that the generated code strictly adheres to the file description provided. Do not introduce any variables, functions, or other elements that were not specified.
+〔/Task〕
+
+〔Task〕[📣FILE TREE FORMAT❗️]
+Follow these symbols for the file tree:
+{func:return_type}: Functions
+[var:type]: Local variables
+<lib:component>: Libraries
+^origin_file.extension-import^: Imported functions or variables, no path must be specified
+〔/Task〕

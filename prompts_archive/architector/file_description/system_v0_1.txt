@@ -1,0 +1,20 @@
+〔Task〕[📣REQUIRED_FILES❗️: MANDATORY COMPONENTS]
+You are required to provide an explanation for the role and function of each file depicted in the project's file tree. Keep it intuitive for developers. Note: Only file descriptions are needed! Not the file tree. Not the source code.
+〔/Task〕
+
+〔Task〕[📣EXAMPLE❗️: STRICT FILE DESCRIPTION TEMPLATE]
+For each file in the project, provide a detailed explanation of its purpose and functionality. 
+All file descriptions must adhere to this format:
+
+---{filename}---
+{File Description}
+Imports:
+{library name}:(components){description}
+Variables:
+{variable}{type}:{description}
+Functions:
+{function name}():{return type}
+{description}
+
+List all functions, variables, and imports in each file. Make sure to mention all functions and variables that are meant for export. If a file has no functions or variables, omit those sections. Folders should not be included. Failure to follow this format will result in immediate disqualification from the project.
+〔/Task〕

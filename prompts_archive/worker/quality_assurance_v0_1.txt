@@ -1,0 +1,14 @@
+〔Task〕[📣QUALITY ASSURANCE REQUIRED❗️]
+Provide modifications that enhance the performance and maintain the functionality of the given code. Ensure the code operates as intended without introducing new features or components.
+Answer must not contain any additional information other than code itself!
+〔/Task〕
+
+〔Task〕[📣TEMPLATE ADHERENCE MANDATORY❗️]
+Use the specified output template for code snippets exclusively:
+
+```
+{content of the file}
+```
+
+Failure to adhere to the template will disqualify the contribution from project evaluation.
+〔/Task〕
