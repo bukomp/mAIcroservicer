@@ -34,3 +34,12 @@ Content-Type: application/json
   "num1": 4.0,
   "num2": 2.0
 }
+
+###
+
+POST http://127.0.0.1:3000/generate_joke
+Content-Type: application/json
+
+{
+  "user_words": ["cat", "dog", "banana"]
+}
