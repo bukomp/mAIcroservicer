@@ -3,18 +3,22 @@ import traceback
 
 
 from helpers.config import config
+from helpers.filters.requrements_filter import filterout_modules
 from helpers.microservice_counter import microservice_count
 from models.file_interface import FileCollection, File
-from models.gpt_responses_interface import ArchitectorResponse
 
 
 def _write_microservice_files(microservice_root_dir: str, file_contents: list[File]) -> None:
   try:
     # Write the extracted files to the new microservice directory
     for file in file_contents:
-      file_name = file.name
       content = file.content
+      file_name = file.name
       path = file.path
+
+      if (file.name == "requirements.txt"):
+        content = filterout_modules(file.content)
+
       # Create the directory if it doesn't exist
       os.makedirs(os.path.join(
           os.getcwd(), microservice_root_dir, path), exist_ok=True)
