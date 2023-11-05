@@ -40,5 +40,6 @@ class FileCollection:
   def collections(self) -> dict[str, list[File]]:
     return self._collections
 
+  #! Unused function
   def add_file(self, collection_name: str, file: File) -> None:
     self.collections[collection_name].append(file)

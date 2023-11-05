@@ -1,9 +1,6 @@
 
 import asyncio
-from concurrent.futures import ThreadPoolExecutor, as_completed
 import logging
-from gpt_generator.modules.file_description_architector import gpt_file_description_architector
-from gpt_generator.modules.structure_architector import gpt_project_structure_architector
 from gpt_generator.modules.worker import gpt_worker
 from helpers.architecture_extractor import structure_2_dict
 from helpers.code_extractor import extract_code
