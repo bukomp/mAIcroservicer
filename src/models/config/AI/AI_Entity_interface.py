@@ -1,4 +1,4 @@
-from models.config.prompt_dictionary_interface import PromptDictionary
+from ..prompt_dictionary_interface import PromptDictionary
 
 
 class AI_Entity:

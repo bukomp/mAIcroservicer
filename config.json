@@ -49,5 +49,6 @@
     "general_architector_system_prompt": "architector.system.0_2",
     "general_worker_system_prompt": "worker.system.0_4_7"
   },
-  "base_dir": "microservices"
+  "base_dir": "microservices",
+  "base_path_to_prompts": "./"
 }

@@ -1,5 +1,5 @@
-from models.config.AI.AI_Entity_interface import AI_Entity
-from models.config.prompt_dictionary_interface import PromptDictionary
+from .AI_Entity_interface import AI_Entity
+from ..prompt_dictionary_interface import PromptDictionary
 
 
 class AI_Config:
