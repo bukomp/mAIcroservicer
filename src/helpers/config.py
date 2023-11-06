@@ -2,8 +2,9 @@ import os
 from dotenv import dotenv_values
 import json
 
-from ..models.config.Secrets_interface import Secrets
-from ..models.config.config_interface import Config
+from models.config.Secrets_interface import Secrets
+from models.config.config_interface import Config
+
 
 env = dict(dotenv_values(".env"))
 if "GPT_KEY" not in env or "GPT_ORG" not in env:

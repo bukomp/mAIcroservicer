@@ -1,7 +1,7 @@
 import pytest
-from src.helpers.config import env, secrets, config
-from src.models.config.config_interface import Config
-from src.models.config.Secrets_interface import Secrets
+from helpers.config import env, secrets, config
+from models.config.config_interface import Config
+from models.config.Secrets_interface import Secrets
 
 
 @pytest.fixture
