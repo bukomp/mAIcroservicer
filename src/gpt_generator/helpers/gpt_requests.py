@@ -28,6 +28,8 @@ async def create_chat_completion(
   Returns:
       str: The content of the message from the first choice in the chat completion.
   """
+  global attempts
+
   try:
     openai.organization = config.secrets.GPT_ORG
     openai.api_key = config.secrets.GPT_KEY
@@ -49,14 +51,18 @@ async def create_chat_completion(
     choise = chat_completion.choices[0]  # type: ignore
     content: str = choise.message['content']
 
+    attempts = 0
+
+    print(content)
     return content
   except Exception as e:
-    global attempts
 
     print(f"An error occurred: {e} \n{__file__}")
-    print(f"Trying again! attempt: {attempts}/3")
-    if (attempts < 3):
+    if (int(attempts) < 3):
       attempts += 1
+
+      print(f"Trying again! attempt: {attempts}/3")
+
       return await create_chat_completion(
           LLM_model,
           temperature,
@@ -66,4 +72,5 @@ async def create_chat_completion(
           prompts_in_order
       )
     else:
+      attempts = 0
       return str(e)
