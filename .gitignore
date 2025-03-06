@@ -4,9 +4,13 @@ microservices/*
 .env**
 !.env.shared**
 
+node_modules
 **/__pycache__
 version.txt
 
 .vscode
+dist
 
 REST
+
+microservice_description.txt
